@@ -1,12 +1,10 @@
-/*
 package driver;
 
 import java.util.ArrayList;
 import java.io.Console;
 
 import board.*;
-import cards.Card;
-import cards.CardType;
+import cards.*;
 
 public class Game {
     private static Player p1, p2;
@@ -26,11 +24,9 @@ public class Game {
         currentPlayer = p1;
         p2 = new Player();
         p1.addCardtoHand(Board.getForestCardsPile().drawCard());
-        p1.addCardtoHand(Board.getF
-                orestCardsPile().drawCard()); p1.addCardtoHand(Board.getForestCardsPile().drawCard());
+        p1.addCardtoHand(Board.getForestCardsPile().drawCard()); p1.addCardtoHand(Board.getForestCardsPile().drawCard());
         p2.addCardtoHand(Board.getForestCardsPile().drawCard());
-        p2.addCardtoHand(Board.getF
-                orestCardsPile().drawCard()); p2.addCardtoHand(Board.getForestCardsPile().drawCard());
+        p2.addCardtoHand(Board.getForestCardsPile().drawCard()); p2.addCardtoHand(Board.getForestCardsPile().drawCard());
 //Display board
         displayBoard();
         while (Board.getForest().size() > 0) {
@@ -264,4 +260,3 @@ public class Game {
         System.out.print("|");
     }
 }
-*/
