@@ -2,10 +2,9 @@ package cards;
 
 public class HoneyFungus extends Mushroom {
     public HoneyFungus(CardType type) {
-        super(type, "HoneyFungus");
+        super(type, "honeyfungus");
 
-        // todo: init points
-        this.flavourPoints = -1;
-        this.sticksPerMushroom = -1;
+        this.flavourPoints = 1;
+        this.sticksPerMushroom = 1;
     }
 }

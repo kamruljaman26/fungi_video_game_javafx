@@ -2,10 +2,9 @@ package cards;
 
 public class Chanterelle extends Mushroom{
     public Chanterelle(CardType type) {
-        super(type, "Chanterelle");
+        super(type, "chanterelle");
 
-        // todo: init points
-        this.flavourPoints = -1;
-        this.sticksPerMushroom = -1;
+        this.flavourPoints = 4;
+        this.sticksPerMushroom = 2;
     }
 }

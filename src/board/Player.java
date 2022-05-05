@@ -28,7 +28,7 @@ public class Player {
         return sticks;
     }
 
-    public void addStick(int s) {
+    public void addSticks(int s) {
         sticks += s;
     }
 

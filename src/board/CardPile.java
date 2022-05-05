@@ -8,8 +8,8 @@ public class CardPile {
 
     private Stack<Card> cPile;
 
-    public CardPile(Stack<Card> cPile) {
-        this.cPile = cPile;
+    public CardPile() {
+        this.cPile = new Stack<>();
     }
 
     public void addCard(Card card){

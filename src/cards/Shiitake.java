@@ -2,10 +2,9 @@ package cards;
 
 public class Shiitake extends Mushroom{
     public Shiitake(CardType type) {
-        super(type, "Shiitake");
+        super(type, "shiitake");
 
-        // todo: init points
-        this.flavourPoints = -1;
-        this.sticksPerMushroom = -1;
+        this.flavourPoints = 2;
+        this.sticksPerMushroom = 2;
     }
 }

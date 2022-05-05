@@ -2,10 +2,9 @@ package cards;
 
 public class Porcini extends Mushroom{
     public Porcini(CardType type) {
-        super(type, "Porcini");
+        super(type, "porcini");
 
-        // todo: init points
-        this.flavourPoints = -1;
-        this.sticksPerMushroom = -1;
+        this.flavourPoints = 3;
+        this.sticksPerMushroom = 3;
     }
 }
