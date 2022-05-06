@@ -25,6 +25,6 @@ public class CardList {
     }
 
     public Card removeElement(int index) {
-        return cList.remove(index);
+        return cList.remove(Math.abs(index-8));
     }
 }

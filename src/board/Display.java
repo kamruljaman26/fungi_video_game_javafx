@@ -24,11 +24,11 @@ public class Display implements Displayable {
 
     @Override
     public Card getElementAt(int index) {
-        return displayList.get(index);
+        return displayList.get(index-1);
     }
 
     @Override
     public Card removeElement(int index) {
-        return displayList.remove(index);
+        return displayList.remove(index-1);
     }
 }
