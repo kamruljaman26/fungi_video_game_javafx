@@ -58,7 +58,12 @@ public class Player {
     }
 
     public void addCardtoHand(Card card) {
-        h.add(card);
+        if (card instanceof Basket) {
+            d.add(card);
+            handLimit += 2;
+        } else {
+            h.add(card);
+        }
     }
 
     public void addCardtoDisplay(Card card) {
@@ -114,7 +119,7 @@ public class Player {
                     for (int i = 0; i < needStick; i++) {
                         for (int j = 0; j <= d.size(); j++) {
                             Card card = d.getElementAt(j);
-                            if(card instanceof Stick){
+                            if (card instanceof Stick) {
                                 d.removeElement(j);
                                 break;
                             }
@@ -143,7 +148,52 @@ public class Player {
     }
 
     public boolean takeFromDecay() {
-        // todo:
+
+        ArrayList<Card> decayPile = Board.getDecayPile();
+
+
+        // find basket
+        int totalBasket = 0;
+        for (Card card : decayPile) {
+            if (card instanceof Basket) {
+                totalBasket++;
+            }
+        }
+
+        // if comprised of 4 card with 2 basket
+        if (totalBasket >= 2) {
+            for (Card card : decayPile) {
+                if (card instanceof Basket) {
+                    d.add(card);
+                    handLimit += 2;
+                } else {
+                    h.add(card);
+                }
+            }
+            return true;
+        }
+
+        // if have one
+        if (totalBasket == 1 && handLimit >= (h.size() + decayPile.size() - 3)) {
+            for (Card card : decayPile) {
+                if (card instanceof Basket) {
+                    d.add(card);
+                    handLimit += 2;
+                } else {
+                    h.add(card);
+                }
+            }
+            return true;
+        }
+
+        // for no basket
+        if (totalBasket == 0 && handLimit >= (h.size() + decayPile.size())) {
+            for (Card card : decayPile) {
+                h.add(card);
+            }
+            return true;
+        }
+
         return false;
     }
 
