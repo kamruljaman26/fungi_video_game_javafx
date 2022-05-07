@@ -1,9 +1,6 @@
 package board;
 
-import cards.Basket;
-import cards.Card;
-import cards.Pan;
-import cards.Stick;
+import cards.*;
 
 import java.util.ArrayList;
 
@@ -198,8 +195,106 @@ public class Player {
     }
 
     public boolean cookMushrooms(ArrayList<Card> mushrooms) {
-        // todo: cook
-        return false;
+
+        Pan pan = null;
+        boolean panWithMushrooms = false;
+        int totalMushrooms = 0;
+        int butter = 0;
+        int cider = 0;
+        int other = 0;
+        String mushroomName = null;
+        int mushTypes = 1;
+
+        for (Card card : mushrooms) {
+            if (card instanceof Pan) {
+                pan = (Pan) card;
+                panWithMushrooms = true;
+            } else if (card instanceof Mushroom) {
+                Mushroom mushroom = (Mushroom) card;
+
+                System.out.println(mushroom.getName());
+                if (mushroomName == null) mushroomName = mushroom.getName();
+                else if (!mushroomName.equals(mushroom.getName())) mushTypes++;
+
+                if (mushroom.getType() == CardType.NIGHTMUSHROOM) totalMushrooms += 2;
+                else totalMushrooms++;
+
+            } else if (card instanceof Butter) {
+                butter++;
+            } else if (card instanceof Cider) {
+                cider++;
+            } else {
+                other++;
+            }
+        }
+
+        // find pan in display
+        if (pan == null) {
+            for (int i = 0; i < d.size(); i++) {
+                Card card = d.getElementAt(i);
+                if (card instanceof Pan) pan = (Pan) card;
+            }
+        }
+
+
+        // if no pan and mushrooms are less then 3, return false
+        if (pan == null || totalMushrooms < 3 || other > 0 || mushTypes > 1) return false;
+
+        // if have cider or butter
+        if (butter > 0 || cider > 0) {
+            // 1 butter and 1 cider
+            if (totalMushrooms >= 10) {
+                score += 5 * cider; // points for cider
+                score += 3 * butter; // points for cider
+                cook(mushrooms, panWithMushrooms); // cook
+                return true;
+            } else if (butter == 1 && cider == 1 && totalMushrooms >= 9) {
+                score += 3; // points for butter
+                score += 5; // points for cider
+                cook(mushrooms, panWithMushrooms); // cook
+                return true;
+            } else if (butter == 1 && cider == 0 &&  totalMushrooms >= 4) {
+                score += 3 * butter; // points for butter
+                cook(mushrooms, panWithMushrooms); // cook
+                return true;
+            } else if (butter == 2 && cider == 0 && totalMushrooms >= 8) {
+                score += 3 * butter; // points for butter
+                cook(mushrooms, panWithMushrooms); // cook
+                return true;
+            } else if (butter == 0 && cider == 1 && totalMushrooms >= 5) {
+                score += 5 * cider; // points for butter
+                cook(mushrooms, panWithMushrooms); // cook
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            cook(mushrooms, panWithMushrooms); // cook
+            return true;
+        }
+    }
+
+
+    // add points from mushrooms
+    private void cook(ArrayList<Card> mushrooms, boolean isPanWithMushrooms) {
+        for (Card card : mushrooms) {
+            if (card instanceof Mushroom) {
+                Mushroom mushroom = (Mushroom) card;
+                if (mushroom.getType() == CardType.NIGHTMUSHROOM) score += mushroom.getFlavourPoints();
+                score += mushroom.getFlavourPoints();
+            }
+        }
+
+        // if pan from display remove it
+        if (!isPanWithMushrooms) {
+            for (int i = 0; i < d.size(); i++) {
+                if (d.getElementAt(i) instanceof Pan) {
+                    d.removeElement(i);
+                    break;
+                }
+            }
+        }
     }
 
     public boolean sellMushrooms(String s, int i) {
