@@ -133,6 +133,11 @@ public class Board {
     }
 
     public static void updateDecayPile() {
-        // todo: update decay pile
+        if (decayPile.size() >= 4) {
+            decayPile.subList(0, 4).clear();
+            decayPile.add(forestCardsPile.drawCard());
+        }else {
+            decayPile.add(forestCardsPile.drawCard());
+        }
     }
 }
