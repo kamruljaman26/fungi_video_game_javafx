@@ -135,9 +135,4 @@ public class Board {
     public static void updateDecayPile() {
         // todo: update decay pile
     }
-
-    public static void main(String[] args) {
-        Board.initialisePiles();
-        Board.setUpCards();
-    }
 }
