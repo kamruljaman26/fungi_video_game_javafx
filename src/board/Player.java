@@ -253,7 +253,7 @@ public class Player {
                 score += 5; // points for cider
                 cook(mushrooms, panWithMushrooms); // cook
                 return true;
-            } else if (butter == 1 && cider == 0 &&  totalMushrooms >= 4) {
+            } else if (butter == 1 && cider == 0 && totalMushrooms >= 4) {
                 score += 3 * butter; // points for butter
                 cook(mushrooms, panWithMushrooms); // cook
                 return true;
@@ -298,8 +298,60 @@ public class Player {
     }
 
     public boolean sellMushrooms(String s, int i) {
-        // todo: cook
-        return false;
+
+        String name = s
+                .toLowerCase()
+                .replace(" ", "")
+                .replace("'", "")
+                .trim();
+        int found = 0;
+
+        // find card in hand
+        for (int j = 0; j < h.size(); j++) {
+            Card card = h.getElementAt(j);
+            if (card instanceof Mushroom) {
+                Mushroom mushroom = (Mushroom) card;
+                if (mushroom.getName().equals(name)) {
+                    if (mushroom.getType() == CardType.NIGHTMUSHROOM) {
+                        found += 2;
+                    } else {
+                        found++;
+                    }
+                }
+            }
+        }
+
+        // if mushroom not found or found less then 2 return false
+        if (found < i || i < 2) return false;
+
+        // find, remove and update sticks
+        int sellCount = 0;
+        for (int j = 1; j <= i; j++) {
+            if (sellCount == i) break;
+
+            for (int k = 0; k < h.size(); k++) {
+                Card card = h.getElementAt(k);
+                if (card instanceof Mushroom) {
+                    Mushroom mushroom = (Mushroom) card;
+                    if (mushroom.getName().equals(name)) {
+                        h.removeElement(k); // remove card
+
+                        if (mushroom.getType() == CardType.NIGHTMUSHROOM) {
+                            addSticks(mushroom.getSticksPerMushroom()); // add sticks into display
+                            addSticks(mushroom.getSticksPerMushroom()); // add sticks into display
+                            sellCount += 2;
+                        } else {
+                            addSticks(mushroom.getSticksPerMushroom()); // add sticks into display
+                            sellCount++;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        return true;
     }
 
     public boolean putPanDown() {
